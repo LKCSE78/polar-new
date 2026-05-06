@@ -1,0 +1,349 @@
+/* ============================================================
+   POLAR ANALYTICS — ADVANCED MOBILE APP EXPERIENCE
+   Premium glassmorphic UI for small screens (≤ 850px)
+   ============================================================ */
+
+@media screen and (max-width: 850px) {
+
+    /* ──────────────────────────────────────────────────
+       1. CORE RESET & SCROLL FIX
+       ────────────────────────────────────────────────── */
+    :root {
+        --mobile-nav-height: 70px;
+        --mobile-top-padding: 20px;
+    }
+
+    body {
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        height: auto !important;
+        min-height: 100vh !important;
+        display: block !important; /* Break desktop flex */
+        padding-bottom: calc(var(--mobile-nav-height) + 20px) !important;
+    }
+
+    /* ──────────────────────────────────────────────────
+       2. SIDEBAR → PREMIUM BOTTOM APP BAR
+       ────────────────────────────────────────────────── */
+    .sidebar {
+        position: fixed !important;
+        bottom: 12px !important;
+        left: 12px !important;
+        right: 12px !important;
+        top: auto !important;
+        width: calc(100% - 24px) !important;
+        height: var(--mobile-nav-height) !important;
+        min-height: auto !important;
+        background: rgba(15, 21, 32, 0.8) !important;
+        backdrop-filter: blur(28px) !important;
+        -webkit-backdrop-filter: blur(28px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 20px !important;
+        flex-direction: row !important;
+        padding: 0 10px !important;
+        margin: 0 !important;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8) !important;
+        z-index: 99999 !important;
+        transition: transform 0.3s ease;
+    }
+
+    /* Hide desktop elements */
+    .sidebar .brand,
+    .sidebar .brand-text,
+    .sidebar .sidebar-logo,
+    .sidebar .sidebar-footer,
+    .sidebar-footer .user-info,
+    .sidebar .version-tag {
+        display: none !important;
+    }
+
+    .sidebar nav {
+        display: flex !important;
+        flex-direction: row !important;
+        width: 100% !important;
+        height: 100% !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .sidebar nav a {
+        flex: 1 !important;
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 4px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: transparent !important;
+        border: none !important;
+        color: rgba(255, 255, 255, 0.4) !important;
+        font-size: 10px !important;
+        font-weight: 500 !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    .sidebar nav a svg {
+        width: 22px !important;
+        height: 22px !important;
+        margin: 0 !important;
+        opacity: 0.5 !important;
+        transition: transform 0.3s ease, opacity 0.3s ease !important;
+    }
+
+    .sidebar nav a.active {
+        color: var(--accent-primary, #4f8ef0) !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .sidebar nav a.active svg {
+        opacity: 1 !important;
+        transform: translateY(-4px) scale(1.1) !important;
+        stroke: var(--accent-primary, #4f8ef0) !important;
+    }
+
+    /* ──────────────────────────────────────────────────
+       3. MAIN CONTENT
+       ────────────────────────────────────────────────── */
+    .main {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 16px 16px 30px 16px !important;
+        width: 100% !important;
+        min-height: auto !important;
+        display: block !important;
+        overflow: visible !important;
+        z-index: 1 !important;
+    }
+
+    /* ──────────────────────────────────────────────────
+       4. TOPBAR OVERHAUL
+       ────────────────────────────────────────────────── */
+    .topbar {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+        padding-bottom: 16px !important;
+        margin-bottom: 24px !important;
+        text-align: left !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+
+    .topbar-left {
+        width: 100% !important;
+    }
+
+    .topbar-greeting {
+        font-size: 10px !important;
+        margin-bottom: 4px !important;
+    }
+
+    .topbar h1 {
+        font-size: 22px !important;
+        line-height: 1.2 !important;
+    }
+
+    .topbar-sub {
+        font-size: 12px !important;
+        opacity: 0.7 !important;
+    }
+
+    .topbar-right {
+        width: 100% !important;
+        margin-top: 4px !important;
+    }
+
+    .date-badge {
+        background: rgba(255, 255, 255, 0.03) !important;
+        padding: 6px 12px !important;
+        font-size: 11px !important;
+        border-radius: 8px !important;
+    }
+
+    /* ──────────────────────────────────────────────────
+       5. ACTIONS & SEARCH
+       ────────────────────────────────────────────────── */
+    .actions {
+        background: rgba(255, 255, 255, 0.02) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-radius: 16px !important;
+        padding: 12px !important;
+        margin-bottom: 20px !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+    }
+
+    .actions a, 
+    .actions button {
+        flex: 1 1 calc(50% - 4px) !important;
+        height: 44px !important;
+        border-radius: 10px !important;
+        font-size: 12px !important;
+        justify-content: center !important;
+    }
+
+    .actions input#searchInput {
+        width: 100% !important;
+        flex: 1 1 100% !important;
+        height: 48px !important;
+        margin-left: 0 !important;
+        margin-top: 4px !important;
+        order: 3 !important;
+        background: rgba(0, 0, 0, 0.2) !important;
+        border-radius: 12px !important;
+        font-size: 14px !important;
+        padding: 0 16px !important;
+    }
+
+    /* ──────────────────────────────────────────────────
+       6. STATS & GRIDS (Dashboard)
+       ────────────────────────────────────────────────── */
+    .stats {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 12px !important;
+        margin-bottom: 24px !important;
+    }
+
+    .stat {
+        padding: 16px 12px !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+    }
+
+    .stat-icon {
+        width: 40px !important;
+        height: 40px !important;
+        border-radius: 10px !important;
+    }
+
+    .stat span {
+        font-size: 26px !important;
+    }
+
+    .stat h3 {
+        font-size: 11px !important;
+    }
+
+    .quick-links {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px !important;
+    }
+
+    .quick-card {
+        padding: 14px !important;
+    }
+
+    .grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 16px !important;
+    }
+
+    /* ──────────────────────────────────────────────────
+       7. PANEL & TABLES
+       ────────────────────────────────────────────────── */
+    .panel {
+        padding: 18px 14px !important;
+        border-radius: 16px !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    .table-wrapper {
+        border-radius: 10px !important;
+        border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        margin-top: 8px !important;
+    }
+
+    table {
+        min-width: 650px !important; /* Force internal scroll */
+    }
+
+    th, td {
+        padding: 12px 10px !important;
+        font-size: 13px !important;
+    }
+
+    /* Small touch indicator for tables */
+    .table-wrapper::after {
+        content: 'Scroll →' !important;
+        display: block !important;
+        text-align: right !important;
+        font-size: 10px !important;
+        color: var(--text-muted) !important;
+        padding: 4px 8px !important;
+        opacity: 0.6 !important;
+    }
+
+    /* ──────────────────────────────────────────────────
+       8. FORMS
+       ────────────────────────────────────────────────── */
+    .form-group {
+        margin-bottom: 12px !important;
+    }
+
+    .form-group label {
+        font-size: 13px !important;
+        opacity: 0.8 !important;
+    }
+
+    input, select, textarea {
+        height: 48px !important;
+        font-size: 16px !important; /* Prevent iOS zoom */
+        background: rgba(255, 255, 255, 0.03) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 12px !important;
+    }
+
+    .btn-save {
+        height: 54px !important;
+        border-radius: 14px !important;
+        font-size: 15px !important;
+        margin-top: 12px !important;
+    }
+
+    /* ──────────────────────────────────────────────────
+       9. MODALS / OVERLAYS
+       ────────────────────────────────────────────────── */
+    .overlay {
+        background: rgba(0, 0, 0, 0.85) !important;
+        backdrop-filter: blur(8px) !important;
+        align-items: flex-end !important; /* Bottom sheet style */
+        padding: 0 !important;
+    }
+
+    .edit-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        border-radius: 24px 24px 0 0 !important;
+        padding: 30px 20px 50px 20px !important;
+        transform: translateY(0) !important;
+        animation: slideUp 0.4s cubic-bezier(0, 0.55, 0.45, 1);
+    }
+
+    @keyframes slideUp {
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
+    }
+}
+
+/* Extra Small Phones */
+@media screen and (max-width: 480px) {
+    .stats {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .topbar h1 {
+        font-size: 20px !important;
+    }
+
+    .sidebar nav a {
+        font-size: 9px !important;
+    }
+}

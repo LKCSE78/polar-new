@@ -1,0 +1,358 @@
+/* ==================================================
+   PREMIUM VINTAGE ENTERPRISE AI DESIGN SYSTEM - LOGIN
+   ================================================== */
+
+:root {
+  --bg-main: #0a0a0c;
+  --bg-card: rgba(18, 20, 24, 0.65);
+  --accent-primary: #3b82f6;
+  --accent-glow: rgba(59, 130, 246, 0.5);
+  --accent-warm: #c8a46a;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-focus: rgba(255, 255, 255, 0.2);
+  --shadow-deep: rgba(0, 0, 0, 0.8);
+}
+
+/* ==================================================
+   GLOBAL RESET
+   ================================================== */
+
+* {
+  box-sizing: border-box;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(30, 58, 138, 0.15), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(147, 51, 234, 0.1), transparent 25%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-main);
+  overflow: hidden;
+  position: relative;
+}
+
+/* ==================================================
+   DYNAMIC BACKGROUND MESH / GLOW
+   ================================================== */
+body::before,
+body::after {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  filter: blur(140px);
+  z-index: 0;
+  pointer-events: none;
+  animation: drift 20s infinite alternate ease-in-out;
+}
+
+body::before {
+  background: rgba(59, 130, 246, 0.15); /* Blue glow */
+  top: -100px;
+  left: -200px;
+}
+
+body::after {
+  background: rgba(16, 185, 129, 0.1); /* Emerald glow */
+  bottom: -150px;
+  right: -100px;
+  animation-delay: -10s;
+  animation-direction: alternate-reverse;
+}
+
+@keyframes drift {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(100px, 50px) scale(1.1); }
+  100% { transform: translate(-50px, 100px) scale(0.9); }
+}
+
+/* ==================================================
+   CONTAINER
+   ================================================== */
+
+.container {
+  position: relative;
+  text-align: center;
+  z-index: 10;
+  width: 100%;
+  max-width: 440px;
+  padding: 0 20px;
+  animation: fadeLift 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+@keyframes fadeLift {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================================================
+   LOGO
+   ================================================== */
+
+.logo {
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.brand-logo {
+  width: 90px;
+  height: auto;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.1));
+  animation: floatLogo 6s infinite ease-in-out;
+  object-fit: contain;
+}
+
+@keyframes floatLogo {
+  0% { transform: translateY(0px); filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.2)); }
+  50% { transform: translateY(-8px); filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.5)); }
+  100% { transform: translateY(0px); filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.2)); }
+}
+
+.logo h1 {
+  font-size: 24px;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 1px;
+  background: linear-gradient(to right, #ffffff, #94a3b8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.logo p {
+  font-size: 13px;
+  margin-top: 8px;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* ==================================================
+   CARD – REALISTIC GLASS + METAL
+   ================================================== */
+
+.card {
+  width: 100%;
+  padding: 40px 36px;
+  background: var(--bg-card);
+  border-radius: 24px;
+  border: 1px solid var(--border-subtle);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow:
+    0 40px 100px var(--shadow-deep),
+    inset 0 1px 1px rgba(255,255,255,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 45px 110px var(--shadow-deep),
+    inset 0 1px 1px rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.card h2 {
+  text-align: left;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #fff;
+}
+
+/* ==================================================
+   FORM
+   ================================================== */
+.input-group {
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+label {
+  font-size: 13px;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.input-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-subtle);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle glow internal to the input box */
+.input-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.02), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+  pointer-events: none;
+}
+
+.input-box:focus-within::before {
+  transform: translateX(100%);
+  animation: swipe 2s infinite linear;
+}
+
+@keyframes swipe {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+
+.input-box svg {
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.input-box input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text-main);
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.input-box input::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.input-box:focus-within {
+  border-color: var(--border-focus);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+}
+
+.input-box:focus-within svg {
+  color: var(--accent-primary);
+}
+
+.input-group:focus-within label {
+  color: #fff;
+}
+
+/* ==================================================
+   BUTTON – WEIGHTED, MECHANICAL FEEL
+   ================================================== */
+
+.btn-primary {
+  width: 100%;
+  padding: 16px;
+  margin-top: 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 10px 20px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Button ripple/shine */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: skewX(-20deg);
+  transition: .5s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 15px 25px rgba(37, 99, 235, 0.4),
+    inset 0 1px 0 rgba(255,255,255,0.3);
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.btn-primary:hover::after {
+  left: 150%;
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ==================================================
+   MESSAGE
+   ================================================== */
+
+.message {
+  margin-top: 20px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 500;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.message.error {
+  background: rgba(220, 38, 38, 0.1);
+  color: #fca5a5;
+  border: 1px solid rgba(220, 38, 38, 0.2);
+}
+
+.message.success {
+  background: rgba(16, 185, 129, 0.1);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}

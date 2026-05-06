@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>POLAR ANALYTICS | Service Records</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashborad.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='service.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='mobile.css') }}">
+</head>
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar">
+    <div class="brand">
+      ⚙️ <span>POLAR ANALYTICS</span>
+      <small>Service Intelligence</small>
+    </div>
+
+    <nav>
+      <a href="{{ url_for('dashboard') }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg><span>Dashboard</span></a>
+      <a href="{{ url_for('customer') }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span>Customers</span></a>
+      <a href="{{ url_for('instruments') }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg><span>Instruments</span></a>
+      <a href="{{ url_for('amc') }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg><span>AMC Details</span></a>
+      <a class="active" href="{{ url_for('service') }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg><span>Service Records</span></a>
+      <a href="{{ url_for('data') }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg><span>Data Export</span></a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div id="user-email">—</div>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+      <small>AI Engine • v1.0</small>
+    </div>
+  </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+          <div class="topbar-left">
+            <h1>Service Records</h1>
+            <p class="topbar-sub">Maintenance logs and issue tracking</p>
+          </div>
+          <div class="topbar-right">
+            <div class="date-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              <span id="current-date">—</span>
+            </div>
+          </div>
+        </header>
+
+        
+        <div class="actions">
+            <input id="searchInput" type="text" placeholder="Search Service..." onkeyup="searchSer()">
+        </div>
+
+        <!-- SERVICE TABLE -->
+        <section class="panel">
+            <div class="table-wrapper">
+                <table class="service">
+                    <thead>
+                        <tr>
+                            <th>Ser No</th>
+                            <th>Company Name</th>
+                            <th>Instrument Name</th>
+                            <th>S:No</th>
+                            <th>Model No</th>
+                            <th>Issue</th>
+                            <th>Action Taken</th>
+                            <th class="action">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="serTableBody">
+                        <tr class="empty-row">
+                            <td colspan="8" style="text-align: center;">No records found</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination" id="pagination"></div>
+        </section>
+
+        <!-- ADD SERVICE FORM -->
+        <section class="panel">
+            <h2>Add New Service Details</h2>
+            <form class="ser-form" id="serForm" onsubmit="event.preventDefault(); saveSer();">
+                <div class="form-group">
+                    <label>Service No</label>
+                    <input id="ser_no" name="ser_no" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Company Name</label>
+                    <input id="company_name" name="company_name" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Instrument Name</label>
+                    <input id="instrument_name" name="instrument_name" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Serial NO</label>
+                    <input id="serial_no" name="serial_no" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Model No</label>
+                    <input id="model_no" name="model_no" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Issue Type</label>
+                    <input id="issue" name="issue" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Action Taken</label>
+                    <input id="action_taken" name="action_taken" type="text" required>
+                </div>
+                <button type="submit" class="btn-save">Save Details</button>
+            </form>
+        </section>
+
+        <!-- EDIT OVERLAY -->
+        <div id="editCardOverlay" class="overlay">
+            <div class="edit-card">
+                <h2>Edit Service Details</h2>
+                <label>Service No</label>
+                <input type="text" id="edit-ser-no" readonly>
+                <label>Company Name</label>
+                <input type="text" id="edit-company-name">
+                <label>Instrument Name</label>
+                <input type="text" id="edit-instrument-name">
+                <label>Serial NO</label>
+                <input type="text" id="edit-serial-no" readonly>
+                <label>Model No</label>
+                <input type="text" id="edit-model-no">
+                <label>Issue Type</label>
+                <input type="text" id="edit-issue-type">
+                <label>Action Taken</label>
+                <input type="text" id="edit-action-taken">
+                <div class="card-actions">
+                    <button class="edit-button" onclick="updateSer()">Update</button>
+                    <button class="del-button" onclick="closeEditCard()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='auth.js') }}"></script>
+    <script src="{{ url_for('static', filename='service.js') }}"></script>
+</body>
+</html>

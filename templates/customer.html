@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>POLAR ANALYTICS | Customer Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Main Dashboard Theme -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='dashborad.css') }}">
+
+    <!-- Customer Page Styles -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='customer.css') }}">
+    <!-- Shared Mobile CSS -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='mobile.css') }}">
+    
+</head>
+<body>
+    <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar">
+    <div class="brand">
+      ⚙️ <span>POLAR ANALYTICS</span>
+      <small>Service Intelligence</small>
+    </div>
+
+    <nav>
+      <a href="{{ url_for('dashboard') }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg><span>Dashboard</span></a>
+      <a class="active" href="{{ url_for('customer') }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span>Customers</span></a>
+      <a href="{{ url_for('instruments') }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg><span>Instruments</span></a>
+      <a href="{{ url_for('amc') }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg><span>AMC Details</span></a>
+      <a href="{{ url_for('service') }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg><span>Service Records</span></a>
+      <a href="{{ url_for('data') }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg><span>Data Export</span></a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div id="user-email">—</div>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+      <small>AI Engine • v1.0</small>
+    </div>
+  </aside>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="main">
+
+        <!-- ================= HEADER ================= -->
+        <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        
+        <h1>Customer Management</h1>
+        <p class="topbar-sub">View and manage client profiles</p>
+      </div>
+      <div class="topbar-right">
+        <div class="date-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+            <line x1="16" y1="2" x2="16" y2="6" />
+            <line x1="8" y1="2" x2="8" y2="6" />
+            <line x1="3" y1="10" x2="21" y2="10" />
+          </svg>
+          <span id="current-date">—</span>
+        </div>
+      </div>
+    </header>
+
+        
+        <div class="actions">
+            <a href="/export/excel"><button class="btn-export btn-excel">&#x2B07; Export Excel</button></a>
+            <a href="/export/customer/pdf"><button class="btn-export btn-pdf">&#x2B07; Export PDF</button></a>
+            <input id="searchInput" type="text" placeholder="Search customer..." onkeyup="searchCustomer()">
+        </div>
+        
+        <!-- ================= CUSTOMER LIST ================= -->
+        <div class="panel">
+            <h2>Customer List</h2>
+
+            <div class="table-wrapper">
+                <table class="custa">
+                    <thead>
+                        <tr>
+                            <th>c_ID</th>
+                            <th>Company Name</th>
+                            <th>Company Type</th>
+                            <th>Contact Name</th>
+                            <th>Contact_mail</th>
+                            <th>Contact_phone</th>
+                            <th class="action-col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customerTableBody">
+                        <tr class="empty-row">
+                            <td colspan="7">No records found</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="pagination" class="pagination"></div>
+        </div>
+
+        <!-- ================= ADD CUSTOMER ================= -->
+        <div class="panel">
+            <h2>Add New Customer</h2>
+
+            <form class="customer-form" id="customerFrom">
+                <div class="form-group">
+                    <label >C_ID *</label>
+                    <input id="cid" type="text" required>
+                </div>
+              
+                <div class="form-group">
+                    <label >Company Name *</label>
+                    <input id="cname" type="text" required>
+                </div>
+
+                <div class="form-group">
+                    <label >Company Type *</label>
+                    <input id="ctype" type="text" required>
+                </div>
+              
+                <div class="form-group">
+                    <label >Contact Name *</label>
+                    <input id="ccname" type="text" required>
+                </div>
+
+                <div class="form-group">
+                    <label >Email *</label>
+                    <input id="cmail" type="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label >Phone *</label>
+                    <input id="phone" type="tel" required>
+                </div>
+
+                <button type="button" class="btn-save" onclick='load()'>
+                    Save Customer
+                </button>
+            </form>
+        </div>
+
+        <div id="editCardOverlay" class="overlay hidden">
+    <div class="edit-card">
+        <h3>Edit Customer</h3>
+
+        <input type="hidden" id="edit_company_id">
+
+        <label>Company Name</label>
+        <input type="text" id="edit_company_name">
+
+        <label>Company Type</label>
+        <input type="text" id="edit_company_type">
+
+        <label>Contact Name</label>
+        <input type="text" id="edit_contact_name">
+
+        <label>Contact Email</label>
+        <input type="email" id="edit_contact_mail">
+
+        <label>Contact Phone</label>
+        <input type="text" id="edit_contact_phone">
+
+        <div class="card-actions">
+            <button class="btn-edit" onclick="updateCustomer()">Update</button>
+            <button class="btn-delete" onclick="closeEditCard()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+    </main>
+
+</body>
+<!-- ================= AUTH ================= -->
+<script src="{{ url_for('static', filename='auth.js') }}"></script>
+<!-- ================= CUSTOMER LOGIC ================= -->
+<script src="{{ url_for('static', filename='customer.js') }}"></script>
+</html>

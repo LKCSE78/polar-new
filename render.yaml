@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: sales-service-app
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: SUPABASE_URL
+        scope: run
+        value: ${SUPABASE_URL}
+      - key: SUPABASE_KEY
+        scope: run
+        value: ${SUPABASE_KEY}
+      - key: SECRET_KEY
+        scope: run
+        value: ${SECRET_KEY}
+      - key: FLASK_ENV
+        scope: run
+        value: production
+      - key: DEBUG
+        scope: run
+        value: "False"
+    autoDeploy: true

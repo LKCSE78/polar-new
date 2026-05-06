@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>POLAR ANALYTICS | AMC Contracts</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='dashborad.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='amc.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='mobile.css') }}">
+</head>
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar">
+    <div class="brand">
+      ⚙️ <span>POLAR ANALYTICS</span>
+      <small>Service Intelligence</small>
+    </div>
+
+    <nav>
+      <a href="{{ url_for('dashboard') }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg><span>Dashboard</span></a>
+      <a href="{{ url_for('customer') }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span>Customers</span></a>
+      <a href="{{ url_for('instruments') }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg><span>Instruments</span></a>
+      <a class="active" href="{{ url_for('amc') }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg><span>AMC Details</span></a>
+      <a href="{{ url_for('service') }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg><span>Service Records</span></a>
+      <a href="{{ url_for('data') }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg><span>Data Export</span></a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div id="user-email">—</div>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+      <small>AI Engine • v1.0</small>
+    </div>
+  </aside>
+
+  <!-- ================= MAIN ================= -->
+  <main class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1>AMC Contracts</h1>
+        <p class="topbar-sub">Service level agreement tracking</p>
+      </div>
+      <div class="topbar-right">
+        <div class="date-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+            <line x1="16" y1="2" x2="16" y2="6" />
+            <line x1="8" y1="2" x2="8" y2="6" />
+            <line x1="3" y1="10" x2="21" y2="10" />
+          </svg>
+          <span id="current-date">—</span>
+        </div>
+      </div>
+    </header>
+
+    
+        <div class="actions">
+            <a href="/export/amc/excel"><button class="btn-export btn-excel">⬇ Export Excel</button></a>
+            <a href="/export/amc/pdf"><button class="btn-export btn-pdf">⬇ Export PDF</button></a>
+            <input id="searchInput" type="text" placeholder="Search AMC..." onkeyup="searchAmc()">
+        </div>
+
+    <div class="panel">
+      <div class="table-wrapper">
+        <table class="amc">
+          <thead>
+              <tr>
+                  <th>Company Name</th>
+                  <th>Instrument Name</th>
+                  <th>Serial No</th>
+                  <th>AMC Status</th>
+                  <th>AMC Start</th>
+                  <th>AMC End</th>
+                  <th class="action">Actions</th>
+              </tr>
+          </thead>
+          <tbody id="amcTableBody">
+              <tr class="empty-row">
+                  <td colspan="7" style="text-align: center;">No records found</td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="pagination" class="pagination"></div>
+    </div>
+
+    <div class="panel">
+        <h2>Add New AMC Details</h2>
+        <form class="amc-form" id="amcForm">
+            <div class="form-group">
+                <label>Company Name</label>
+                <input id="company_name" type="text" required>
+            </div>
+            <div class="form-group">
+                <label>Instrument Name</label>
+                <input id="instrument_name" type="text" required>
+            </div>
+            <div class="form-group">
+                <label>Serial NO</label>
+                <input id="serial_no" type="text" required>
+            </div>
+            <div class="form-group">
+                <label>Amc Status</label>
+                <input id="amc_status" type="text" required>
+            </div>
+            <div class="form-group">
+                <label>AMC Start</label>
+                <input id="amc_start" type="date" required>
+            </div>
+            <div class="form-group">
+                <label>AMC End</label>
+                <input id="amc_end" type="date" required>
+            </div>
+            <button type="button" class="btn-save" onclick='load()'>
+                Save Details
+            </button>
+        </form>
+    </div>
+
+    <div id="editCardOverlay" class="overlay">
+        <div class="edit-card">
+            <h2> EDIT AMC DETAILS </h2>
+            <label>Company Name</label>
+            <input type="text" id="edit-company-name">
+            <label>Instrument Name</label>
+            <input type="text" id="edit-instrument-name">
+            <label>Serial NO</label>
+            <input type="text" id="edit-serial-no" readonly>
+            <label>AMC Status</label>
+            <input type="text" id="edit-amc-status">
+            <label>AMC START</label>
+            <input type="date" id="edit-amc-start">
+            <label>AMC END</label>
+            <input type="date" id="edit-amc-end">
+            <div class="card-actions">
+                <button class="edit-button" onclick="updateAMC()">Update</button>
+                <button class="del-button" onclick="closeEditCard()">Cancel</button>
+            </div>
+        </div>
+    </div>
+  
+  </main>
+</body>
+
+<script src="{{ url_for('static', filename='auth.js') }}"></script>
+<script src="{{ url_for('static', filename='amc.js') }}"></script>
+
+<script>
+    const date = new Date();
+    if(document.getElementById("current-date")){
+      document.getElementById("current-date").innerText =
+        date.toLocaleDateString("en-IN", {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+    }
+    function setMinDates(){
+      const today = new Date().toISOString().split("T")[0];
+      const startInput = document.getElementById("amc_start");
+      const editStartInput = document.getElementById("edit-amc-start");
+      if(startInput) startInput.setAttribute("min",today);
+      if(editStartInput) editStartInput.setAttribute("min",today);
+    }
+    setMinDates();
+</script>
+</html>

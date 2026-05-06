@@ -1,0 +1,13 @@
+/* Data Page specific styles */
+.status-badge {
+    padding: 4px 10px;
+    background: rgba(46, 213, 115, 0.1);
+    color: #2ed573;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.actions {
+    margin-bottom: 24px;
+}
