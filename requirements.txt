@@ -7,12 +7,11 @@ reportlab==4.0.7
 pandas>=2.2.0
 python-dotenv==1.0.0
 
-# Supabase stack (FIXED)
+# Supabase (let it manage dependencies)
 supabase==2.4.0
+
+# Force compatible HTTP layer only
 httpx==0.24.1
-httpcore==0.17.3
-gotrue==1.3.0
-postgrest==0.13.0
 
 # Build stability
 setuptools
