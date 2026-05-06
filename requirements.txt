@@ -7,11 +7,5 @@ reportlab==4.0.7
 pandas>=2.2.0
 python-dotenv==1.0.0
 
-# Supabase stack (STRICT FIX)
-supabase==2.4.0
-httpx==0.24.1
-httpcore==0.17.3
-h11==0.14.0
-
-setuptools
-wheel
+# Use older stable supabase (no proxy bug)
+supabase==1.0.3
