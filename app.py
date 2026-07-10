@@ -798,7 +798,7 @@ def edit_ser():
             "type": data.get("type"),
             "action_taken": data.get("action_taken"),
             "m_no": data.get("m_no")
-        }).eq("i_serial", data.get("serial")).execute()
+        }).eq("i_serial", data.get("i_serial")).execute()
 
         return jsonify({"message": "Service Details updated successfully"})
     except Exception as e:
