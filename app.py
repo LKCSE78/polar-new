@@ -679,6 +679,30 @@ def add_amc():
         print(f"Error adding AMC: {e}")
         return jsonify({"error": str(e)}), 500
 
+@app.route("/api/update_amc", methods=["POST"])
+@login_required
+def update_amc():
+    data = request.get_json(silent=True)
+
+    if not data:
+        return jsonify({"error": "No JSON received"}), 400
+
+    try:
+        db = get_db()
+        db.table("amc_details").update({
+            "company_name": data.get("company_name"),
+            "instrument_name": data.get("instrument_name"),
+            "amc_status": data.get("amc_status"),
+            "amc_start":data.get("amc_start"),
+            "amc_end":data.get("amc_end")
+        }).eq("i_serial", data.get("serial_no")).execute()
+
+        return jsonify({"message": "AMC updated successfully"})
+    except Exception as e:
+        print(f"Error updating instrument: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
 @app.route("/api/edit-amc", methods=["POST"])
 @login_required
 def edit_amc():
