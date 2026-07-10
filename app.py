@@ -606,7 +606,7 @@ def update_instruments():
     try:
         db = get_db()
         db.table("instruments").update({
-            "company_name": data.get("customer_name"),
+            "company_name": data.get("company_name"),
             "instrument_name": data.get("instrument_name"),
             "puchase_date": data.get("purchase_date"),
             "m_no": data.get("model_no")
