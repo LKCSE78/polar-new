@@ -794,10 +794,10 @@ def edit_ser():
         db = get_db()
         db.table("service_records").update({
             "customer_name": data.get("company_name"),
-            "i_name": data.get("instrument_name"),
+            "i_name": data.get("i_name"),
             "type": data.get("type"),
             "action_taken": data.get("action_taken"),
-            "m_no": data.get("model_no")
+            "m_no": data.get("m_no")
         }).eq("i_serial", data.get("serial")).execute()
 
         return jsonify({"message": "Service Details updated successfully"})
