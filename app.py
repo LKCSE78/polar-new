@@ -510,7 +510,7 @@ def add_customers():
             "company_type": data.get("ctype"),
             "contact_name": data.get("ccname"),
             "cantact_mail": data.get("cmail"),
-            "contact_phone": data.get("phone")
+            "contact_phone": data.get("cphone")
         }).execute()
 
         return jsonify({"message": "Customer added successfully"})
