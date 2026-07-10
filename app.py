@@ -769,12 +769,12 @@ def add_ser():
         db = get_db()
         db.table("service_records").insert({
             "customer_name": data.get("company_name"),
-            "i_name": data.get("instrument_name"),
-            "i_serial": data.get("serial_no"),
-            "m_no": data.get("model_no"),
-            "type": data.get("issue_type"),
-            "action_taken": data.get("action"),
-            "ser_no": data.get("Ser_no")
+            "i_name": data.get("i_name"),
+            "i_serial": data.get("i_serial"),
+            "m_no": data.get("m_no"),
+            "type": data.get("type"),
+            "action_taken": data.get("action_taken"),
+            "ser_no": data.get("ser_no")
         }).execute()
 
         return jsonify({"message": "Service record added successfully"})
